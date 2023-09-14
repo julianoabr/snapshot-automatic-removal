@@ -397,15 +397,3 @@ foreach ($vcName in $vcNameList)
 
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
