@@ -198,7 +198,7 @@ function Remove-SnapshotAuto
                    ValueFromPipelineByPropertyName=$true,
                    Position=1)]
         [ValidateSet('DNRTeste','DNR3','DNR4','DNR5','DNR6','DNR10')]
-        [System.String]$doNotRemoveString = 'DNRTeste'
+        [System.String]$doNotRemoveString = 'DNR3'
 
 
        )
@@ -256,7 +256,7 @@ $snapshotList = Get-Vm -Server $Script:WorkingServer | Get-Snapshot | Where-Obje
 
     if(!($snapshotList)){
     
-        Write-Output "In Date: $currentDate there are no snapshots to remove according to parameters: $numberOfDays days ago and $stringDNR string in description field" | Out-File -FilePath $outputFile -Append
+         Write-Output "At the date: $currentDate there are no snapshots to remove in  $Script:WorkingServer according to parameters: $numberOfDays days ago and $doNotRemoveString string in description field" | Out-File -FilePath $outputFile -Append
 
     }#end of IF
     else{
@@ -343,7 +343,7 @@ $currentDate = (Get-Date -Format "ddMMyyyy-HHmm").ToString()
 
 $fileDate = (Get-date).ToString()
 
-#$dateToDisregard = (Get-Date).AddHours(-144)
+#$dateToDisregard = (Get-Date).AddHours(-72)
 
 #USE FOR TEST
 #$dateToDisregard = (Get-Date).AddMinutes(-1)
@@ -391,7 +391,7 @@ foreach ($vcName in $vcNameList)
     
     Connect-ToVcenterServer -methodToConnect Automatic -vCServerList $vcName -port 443
 
-    Remove-SnapshotAuto -doNotRemoveString DNR5
+    Remove-SnapshotAuto -doNotRemoveString DNR3
 
     Disconnect-ViServer -Server $script:WorkingServer -Force -Confirm:$false -ErrorAction SilentlyContinue
 
